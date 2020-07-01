@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package ForecastService;
+
+service ForecastAPI
+{
+    // Service to Retrain Model
+    rpc RetrainModel(TrainRequest) returns (stream TrainResponse){}
+
+    // Service to Make Forecast
+    rpc Forecast(ForecastRequest) returns (ForecastResponse){}
+}
+
+message TrainRequest
+{
+    string DatasetPath = 1;
+    int32 DaysToTrain = 2;
+    int32 DaysForecastAhead = 3;
+    int32 NumberEpochs = 4;
+    int32 NumberNeurons = 5;
+    repeated string ForecastAttributes = 6;
+}
+
+message TrainResponse
+{
+    float Progress = 1;
+    repeated float ValidationRMSE = 2;
+    repeated float ValidationFinalError = 3;
+    string ValidationValuesFilePath = 4;
+    string ValidationData = 5;
+}
+
+message ForecastRequest
+{
+    string DatasetPath = 1;
+    repeated string ForecastAttributes = 2;
+    int32 DaysToTrain = 3;
+    int32 DaysForecastAhead = 4;
+    string ScalerPath = 5;
+    string ModelPath = 6;
+}
+
+message ForecastResponse
+{
+    repeated float MaxForecastedValue = 1;
+    repeated float PercentDifference = 2;
+    string ForecastedValuesFilePath = 3;
+    string ForecastData = 4;
+}

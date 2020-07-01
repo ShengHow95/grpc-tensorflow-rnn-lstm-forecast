@@ -1,0 +1,21 @@
+# Data File
+*.csv
+*.xlsx
+*.xls
+
+# Model & Scaler File
+*.pkl
+*.h5
+
+# PyInstaller Spec File
+*.spec
+
+# Folders
+__pycache__/
+hooks/__pycache__/
+tensorflow*/
+
+# Distribution Files
+build*/
+dist*/
+service_dist/
